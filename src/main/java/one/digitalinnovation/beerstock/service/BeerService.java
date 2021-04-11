@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@Service //Ciclo de vida gerenciado pelo Spring
+@AllArgsConstructor(onConstructor = @__(@Autowired)) //Lombock - incluie implicitamente um construtor
 public class BeerService {
 
     private final BeerRepository beerRepository;

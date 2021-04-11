@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/beers")
+@RestController //Classe controladora API REST
+@RequestMapping("/api/v1/beers") //nome principal da API
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BeerController implements BeerControllerDocs {
 

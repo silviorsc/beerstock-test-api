@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
-@Entity
+@Data //Lombock - gerar os getter and setter, equals e hashcode
+@Entity //mapeamento JPA
 @NoArgsConstructor
 @AllArgsConstructor
 public class Beer {
