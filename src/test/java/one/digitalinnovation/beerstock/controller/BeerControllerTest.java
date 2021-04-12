@@ -48,6 +48,11 @@ public class BeerControllerTest {
     @InjectMocks
     private BeerController beerController;
 
+    /**
+     * Método de setup para configurar o mock antes dos testes.
+     *
+     * mockMvc - simula o retorno da API
+     */
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(beerController)
@@ -79,6 +84,8 @@ public class BeerControllerTest {
         // given
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
         beerDTO.setBrand(null);
+
+        //A anotação @Valid fará a verificação do campo obrigatório
 
         // then
         mockMvc.perform(post(BEER_API_URL_PATH)

@@ -37,6 +37,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+//Roda classe de teste com objetos Mockito
 @ExtendWith(MockitoExtension.class)
 public class BeerServiceTest {
 
@@ -45,11 +46,36 @@ public class BeerServiceTest {
     @Mock
     private BeerRepository beerRepository;
 
+    //Converte Entity-DTO
     private BeerMapper beerMapper = BeerMapper.INSTANCE;
 
     @InjectMocks
     private BeerService beerService;
 
+    /**
+     * Testa se o cadastro foi feito com sucesso. Exemplo com Junit sem utilizar o Hamcrest
+     */
+    @Test
+    void whenBeerInformedThenItShouldBeCreatedJunit() throws BeerAlreadyRegisteredException {
+
+        // given
+        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+        Beer expectedSavedBeer = beerMapper.toModel(beerDTO);
+
+        // when
+        when(beerRepository.findByName(beerDTO.getName())).thenReturn(Optional.empty());
+        when(beerRepository.save(expectedSavedBeer)).thenReturn(expectedSavedBeer);
+
+        //then
+        BeerDTO createdBeerDTO = beerService.createBeer(beerDTO);
+
+        assertEquals(beerDTO.getId(),createdBeerDTO.getId());
+        assertEquals(beerDTO.getName(),createdBeerDTO.getName());
+    }
+
+    /**
+     * Testa se o cadastro foi feito com sucesso. Exemplo com Hamcrest
+     */
     @Test
     void whenBeerInformedThenItShouldBeCreated() throws BeerAlreadyRegisteredException {
         // given
@@ -66,6 +92,8 @@ public class BeerServiceTest {
         assertThat(createdBeerDTO.getId(), is(equalTo(expectedBeerDTO.getId())));
         assertThat(createdBeerDTO.getName(), is(equalTo(expectedBeerDTO.getName())));
         assertThat(createdBeerDTO.getQuantity(), is(equalTo(expectedBeerDTO.getQuantity())));
+
+
     }
 
     @Test
@@ -78,6 +106,7 @@ public class BeerServiceTest {
         when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.of(duplicatedBeer));
 
         // then
+        //trhead para capturar a exceção
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createBeer(expectedBeerDTO));
     }
 
@@ -95,6 +124,9 @@ public class BeerServiceTest {
 
         assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
     }
+
+
+
 
     @Test
     void whenNotRegisteredBeerNameIsGivenThenThrowAnException() {
@@ -148,6 +180,7 @@ public class BeerServiceTest {
         // then
         beerService.deleteById(expectedDeletedBeerDTO.getId());
 
+        //Verificações do Mockito que os métodos foram chamados apenas uma vez
         verify(beerRepository, times(1)).findById(expectedDeletedBeerDTO.getId());
         verify(beerRepository, times(1)).deleteById(expectedDeletedBeerDTO.getId());
     }
