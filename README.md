@@ -1,4 +1,7 @@
-<h2>Bootcamp Inter - Teste unitário em uma API REST desenvolvida em Spring Boot</h2>
+<h2>Bootcamp Inter - Testes unitários em uma API REST desenvolvida em Spring Boot</h2>
+
+Implementação dos testes unitários para incremento e decremento do estoque de cervejas visto no bootcamp. Foi utilizado o Junit, Mockito e Hamcrest. A implementação dos testes teve cobertura na camada de serviços(regras de negócio) e na camada de controle(API REST). 
+
 
 
 <h2>Digital Innovation: Expert class - Desenvolvimento de testes unitários para validar uma API REST de gerenciamento de estoques de cerveja.</h2>
